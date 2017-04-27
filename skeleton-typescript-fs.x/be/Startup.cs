@@ -44,6 +44,17 @@ namespace WebAPI
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            //
+            //  JWT based auth as described in https://github.com/auth0-samples/auth0-aspnetcore-webapi-sample/tree/master/04-Authentication-RS256-Legacy
+            //
+            var options = new JwtBearerOptions
+            {
+                Audience = Configuration["auth0:clientId"],
+                Authority = $"https://{Configuration["auth0:domain"]}/"
+            };
+            app.UseJwtBearerAuthentication(options);
+
+
             app.UseMvc();
         }
     }

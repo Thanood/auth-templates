@@ -24,6 +24,7 @@ namespace WebAPI.Controllers
             });
         }
 
+        [Authorize]
         [EnableCors("CorsPolicy")]
         [HttpGet("users")]
         public async Task<string> GitHubUsers()
@@ -41,7 +42,6 @@ namespace WebAPI.Controllers
                 HttpResponseMessage response = await client.GetAsync(uri);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-
 
                 returnValue =  responseBody;
             }
